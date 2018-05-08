@@ -735,7 +735,7 @@ public:
 
     // Bank tabs
     void SetBankTabText(uint8 tabId, std::string const& text);
-    uint32 Guild::GetGuildBankTabPrice(uint8 tabId);
+    uint32 GetGuildBankTabPrice(uint8 tabId);
 
     uint8 GetBankTabCount() { return _GetPurchasedTabsSize(); }
 

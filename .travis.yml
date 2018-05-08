@@ -51,3 +51,13 @@ script:
   - cd check_install/bin
   - ./authserver --version
   - ./worldserver --version
+  
+  ignore:
+  - *.md
+  - cmake/*
+  - contrib/*
+  - dep/*
+  - doc/*
+  - sql/*
+  - *.diff
+  - appveyor.yml
