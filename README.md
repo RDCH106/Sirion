@@ -2,7 +2,7 @@
 
 ## Build Status
 
-[![Build Status](https://travis-ci.org/JorTurFer/Sirion.svg?branch=master)](https://travis-ci.org/JorTurFer/Sirion) | [![Build status](https://ci.appveyor.com/api/projects/status/9ym7q4ghsx1v25oq/branch/master?svg=true)](https://ci.appveyor.com/project/kabestrus/sirion/branch/master)
+[![Build Status](https://travis-ci.org/JorTurFer/Sirion.svg?branch=master)](https://travis-ci.org/JorTurFer/Sirion)  [![Build status](https://ci.appveyor.com/api/projects/status/9ym7q4ghsx1v25oq/branch/master?svg=true)](https://ci.appveyor.com/project/kabestrus/sirion/branch/master)
 
 
 ## Copyright
