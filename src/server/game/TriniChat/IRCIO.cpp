@@ -461,7 +461,7 @@ void IRCClient::Send_WoW_Channel(const char *channel, std::string chat)
         {
             if (ChannelMgr* cMgr = ChannelMgr::forTeam(itr->second->GetSession()->GetPlayer()->GetTeam()))
             {
-                if (cMgr->GetChannel(NULL, channel, itr->second->GetSession()->GetPlayer()))
+                if (cMgr->GetChannel(0, channel, itr->second->GetSession()->GetPlayer()))
                 {
                     WorldPacket data;
                     data.Initialize(SMSG_MESSAGECHAT);

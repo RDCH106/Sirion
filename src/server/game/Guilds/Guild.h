@@ -750,7 +750,7 @@ public:
     uint32 GetCurrentXP() const { return m_current_guildXp; };
     uint32 GetXpForNextLevel() const { return m_xp_for_next_level; };
     bool CanTakePromo();
-    bool TakedPromo() { return m_timePromocionGuildActive != NULL; }
+    bool TakedPromo() { return m_timePromocionGuildActive != 0; }
     void ActivatePromo(uint32 nDays);
     uint32 GetOnlineCount(uint32 nMinLevel);
     void ApplyDisbandDebuff();
@@ -780,7 +780,7 @@ protected:
     uint32 m_current_guildXp;
     uint32 m_xp_for_next_level;
     //Promocion guild
-    time_t m_timePromocionGuildActive = NULL;
+    time_t m_timePromocionGuildActive = 0;
     void _LoadPromoFromDB();
 
 private:

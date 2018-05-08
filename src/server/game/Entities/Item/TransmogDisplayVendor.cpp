@@ -165,7 +165,7 @@ bool TransmogDisplayVendorMgr::CanTransmogrifyItemConjuntos(Player* player, Item
 		return false;
 	if (target->Class == ITEM_CLASS_WEAPON)
 		return false;
-	
+
 	if (target->InventoryType == INVTYPE_BAG ||
 		target->InventoryType == INVTYPE_RELIC ||
 		// target->InventoryType == INVTYPE_BODY ||
@@ -176,7 +176,7 @@ bool TransmogDisplayVendorMgr::CanTransmogrifyItemConjuntos(Player* player, Item
 		return false;
 
 	if (!SuitableForTransmogrification(player, target)) // if (!transmogrified->CanTransmogrify() || !transmogrifier->CanBeTransmogrified())
-		return false;	
+		return false;
 
 	return true;
 }
@@ -403,12 +403,12 @@ uint32 GetTmorgSlot(uint32 InventoryType)
 		break;
 	case INVTYPE_CLOAK:
 		ret = EQUIPMENT_SLOT_BACK;
-		break;	
-		
+		break;
+
 	default:
 		break;
 	}
-	
+
 	return ret;
 }
 
@@ -420,7 +420,7 @@ void TransmogDisplayVendorMgr::HandleTransmogrify(Player* player, Creature* crea
 	if (!selectionStore.GetSelection(player->GetGUID().GetCounter(), selection))
 		return; // cheat, no slot selected
 
-	
+
 
 	uint8 slot;
 
@@ -449,7 +449,7 @@ void TransmogDisplayVendorMgr::HandleTransmogrify(Player* player, Creature* crea
 		return; // LANG_ERR_TRANSMOG_INVALID_SLOT
 	}
 
-	
+
 
 	// transmogrified item
 	Item* itemTransmogrified = player->GetItemByPos(INVENTORY_SLOT_BAG_0, slot);
@@ -500,28 +500,21 @@ void TransmogDisplayVendorMgr::HandleTransmogrify(Player* player, Creature* crea
 				}
 			}
 
-			
-            uint32 cost = sWorld->getIntConfig(CONFIG_TMORG_COST) * player->getLevel() / 80;
-            if (cost < 195) cost = 195; //Minimo, 1 plata 95 cobre
-			
+
+			uint32 cost = sWorld->getIntConfig(CONFIG_TMORG_COST) * player->getLevel() / 80;
+			if (cost < 195) cost = 195; //Minimo, 1 plata 95 cobre
+
 			if (cost) // 0 cost if reverting look
 			{
-				if (cost < 0)
+				if (!player->HasEnoughMoney(cost))
 				{
-                    #pragma warning(suppress: 4146)
-					TC_LOG_DEBUG("custom.transmog", "TransmogDisplayVendorMgr::HandleTransmogrify - %s (%s) transmogrification invalid cost (non negative, amount %i). Transmogrified %u with %u", player->GetName().c_str(), player->GetGUID().ToString().c_str(), -cost, itemTransmogrified->GetEntry(), itemTransmogrifier->ItemId);
+					player->GetSession()->SendNotification("No tienes suficiente dinero");
+					return; // LANG_ERR_TRANSMOG_NOT_ENOUGH_MONEY
 				}
-				else
-				{
-					if (!player->HasEnoughMoney(cost))
-					{
-						player->GetSession()->SendNotification("No tienes suficiente dinero");
-						return; // LANG_ERR_TRANSMOG_NOT_ENOUGH_MONEY
-					}
 
-                    #pragma warning(suppress: 4146)
-					player->ModifyMoney(-cost, false);
-				}
+				#pragma warning(suppress: 4146)
+				player->ModifyMoney(-cost, false);
+
 			}
 
 			SetFakeEntry(player, itemTransmogrified, itemTransmogrifier->ItemId);
@@ -536,15 +529,15 @@ void TransmogDisplayVendorMgr::HandleTransmogrify(Player* player, Creature* crea
 		}
 
 		player->PlayDirectSound(3337);
-		player->CastSpell(player,48335,true,NULL,NULL,player->GetGUID());
+		player->CastSpell(player, 48335, true, NULL, NULL, player->GetGUID());
 		creature->CastSpell(creature, 48335);
 		player->GetSession()->SendAreaTriggerMessage("Transfigurado %s", slotname);
-		
-	/*	CloseGossipMenuFor(player);
-		if (creature->IsSummon()) creature->ToTempSummon()->UnSummon();
-		player->SendGossipRequest(TRANSMORG_GOSSIP_HELLO_REQUEST);*/
 
-		//return LANG_ERR_TRANSMOG_OK;
+		/*	CloseGossipMenuFor(player);
+			if (creature->IsSummon()) creature->ToTempSummon()->UnSummon();
+			player->SendGossipRequest(TRANSMORG_GOSSIP_HELLO_REQUEST);*/
+
+			//return LANG_ERR_TRANSMOG_OK;
 	}
 }
 
@@ -560,7 +553,7 @@ const char * TransmogDisplayVendorMgr::getQualityName(uint32 quality)
 	case ITEM_QUALITY_LEGENDARY: return "|CFF995516[Legendario]";
 	case ITEM_QUALITY_ARTIFACT: return "|CFF735C15[Artefacto]";
 	case ITEM_QUALITY_HEIRLOOM: return "|CFF0C7362[Reliquia]";
-	default: return "|CFFe5cc80[ESPECIAL]";    
+	default: return "|CFFe5cc80[ESPECIAL]";
 	}
 }
 
