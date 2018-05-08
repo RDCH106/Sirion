@@ -2312,7 +2312,7 @@ public:
     //PromoGuild
     bool HasPromoDebuff();
     void ActivatePromo(uint32 nDays);
-    bool HasPromoGuild() { return m_timePromocionGuildDebuff != NULL; }
+    bool HasPromoGuild() { return m_timePromocionGuildDebuff != 0; }
     bool HasPromoInAccount() { return m_AccountWithPromo; }
     bool EnviarPorCorreo(Item* item) {return _EnviarPorCorreo(item); }
     void SetLevelAnnouncerState(bool state) { m_bLevelAnnounceActive = state; }
@@ -2343,7 +2343,7 @@ protected:
 
     bool m_parches = false;
     //Promocion guild
-    time_t m_timePromocionGuildDebuff = NULL;
+    time_t m_timePromocionGuildDebuff = 0;
     bool m_AccountWithPromo = false;
     bool m_bLevelAnnounceActive = true;
 
